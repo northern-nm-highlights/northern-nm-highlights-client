@@ -2,6 +2,21 @@ plugins {
     id 'com.android.application'
 }
 
+String getLocalProperty(String name) {
+    String value = null
+    Properties properties = new Properties()
+    properties.load(new FileInputStream("$projectDir/local.properties"))
+    return properties.getProperty(name)
+}
+
+String getProperty(String filename, String name) {
+    String value = null
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(filename))
+    return properties.getProperty(name)
+}
+
+
 android {
     compileSdkVersion 31
 
@@ -13,6 +28,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'BASE_URL', quoted(getLocalProperty('base_url'))
+
+        buildConfigField 'String', 'CLIENT_ID', quoted(
+                getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'client_id'))
     }
 
     buildTypes {
