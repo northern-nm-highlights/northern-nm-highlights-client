@@ -1,13 +1,13 @@
-package edu.cnm.deepdive.nothern_nm_highlights_client;
+package edu.cnm.deepdive.nothernnmhighlightsclient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity1 extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_main1);
   }
 }

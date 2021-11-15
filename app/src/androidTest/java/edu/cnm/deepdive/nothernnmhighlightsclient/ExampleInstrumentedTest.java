@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.nothern_nm_highlights_client;
+package edu.cnm.deepdive.nothernnmhighlightsclient;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
