@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="edu.cnm.deepdive.nothernnmhighlightsclient">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
@@ -11,21 +9,25 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.Nothernnmhighlightsclient">
-    <activity android:name="edu.cnm.deepdive.nothernnmhighlightsclient.LoginActivity">
+    <activity android:name=".controller.FavoritePlaceFragment">
     </activity>
-    <activity android:name="edu.cnm.deepdive.nothernnmhighlightsclient.MainActivity1">
+    <activity android:name=".controller.PlaceTypeFragment">
     </activity>
-  <activity android:name=".controller.LoginActivity"
-    android:exported="true">
+    <activity android:name=".LoginActivity">
+    </activity>
+    <activity
+      android:exported="true"
+      android:name=".controller.LoginActivity">
+      <intent-filter>
 
-    <intent-filter>
+        <!-- Launches app -->
+        <action android:name="android.intent.action.MAIN"/>
 
-      <!-- Launches app -->
-      <action android:name="android.intent.action.MAIN"/>
-
-      <category android:name="android.intent.category.LAUNCHER"/>
-    </intent-filter>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
     </activity>
   </application>
+
+  <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
