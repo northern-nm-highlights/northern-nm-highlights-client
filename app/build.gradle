@@ -1,21 +1,23 @@
 plugins {
     id 'com.android.application'
+    id 'androidx.navigation.safeargs'
 }
 
 String getLocalProperty(String name) {
-    String value = null
     Properties properties = new Properties()
     properties.load(new FileInputStream("$projectDir/local.properties"))
     return properties.getProperty(name)
 }
 
-String getProperty(String filename, String name) {
-    String value = null
+static String getProperty(String filename, String name) {
     Properties properties = new Properties()
     properties.load(new FileInputStream(filename))
     return properties.getProperty(name)
 }
 
+static String quoted(String input) {
+    return "\"$input\""
+}
 
 android {
     compileSdkVersion 31
@@ -29,7 +31,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'BASE_URL', quoted(getLocalProperty('base_url'))
+        buildConfigField 'String', 'BASE_URL', quoted(
+                getProperty("$projectDir/../../../services/northern-nm-highlights.properties" ,'base_url'))
 
         buildConfigField 'String', 'CLIENT_ID', quoted(
                 getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'client_id'))
