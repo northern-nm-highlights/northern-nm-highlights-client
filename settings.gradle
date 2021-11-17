@@ -1,2 +1,2 @@
-rootProject.name = "nothern-nm-highlights-client"
+rootProject.name = "Northern NM Highlights"
 include ':app'
