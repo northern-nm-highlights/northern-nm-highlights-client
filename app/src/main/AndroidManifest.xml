@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="edu.cnm.deepdive.nothernnmhighlightsclient">
+  xmlns:tools="http://schemas.android.com/tools"
+  package="edu.cnm.deepdive.northernnmhighlights">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
-    android:allowBackup="true"
+    android:name=".NorthernNMHighlightsApplication"
+    android:allowBackup="false"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
@@ -27,7 +31,5 @@
       </intent-filter>
     </activity>
   </application>
-
-  <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
