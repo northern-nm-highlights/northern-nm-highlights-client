@@ -1,14 +1,24 @@
-package edu.cnm.deepdive.nothernnmhighlightsclient.controller;
+package edu.cnm.deepdive.northernnmhighlights.controller;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import edu.cnm.deepdive.nothernnmhighlightsclient.R;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentPlaceTypeBinding;
 
-public class PlaceTypeFragment extends AppCompatActivity {
+public class PlaceTypeFragment extends Fragment {
 
+  private FragmentPlaceTypeBinding binding;
+
+  @Nullable
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_place_type_fragment);
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+     super.onCreateView(inflater, container, savedInstanceState);
+     binding = FragmentPlaceTypeBinding.inflate(inflater, container, false );
+     return binding.getRoot();
   }
 }

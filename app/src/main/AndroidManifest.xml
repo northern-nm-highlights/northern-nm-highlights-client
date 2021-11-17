@@ -12,13 +12,7 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/Theme.Nothernnmhighlightsclient">
-    <activity android:name=".controller.FavoritePlaceFragment">
-    </activity>
-    <activity android:name=".controller.PlaceTypeFragment">
-    </activity>
-    <activity android:name=".LoginActivity">
-    </activity>
+    android:theme="@style/Theme.NorthernNMHighlights">
     <activity
       android:exported="true"
       android:name=".controller.LoginActivity">
@@ -30,6 +24,12 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity
+      android:label="@string/app_name"
+      android:name=".controller.MainActivity"
+      android:theme="@style/Theme.NorthernNMHighlights.NoActionBar">
+    </activity>
+
   </application>
 
 </manifest>

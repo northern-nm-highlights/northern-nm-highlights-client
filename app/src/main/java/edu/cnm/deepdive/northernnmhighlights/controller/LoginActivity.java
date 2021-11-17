@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.nothernnmhighlightsclient.controller;
+package edu.cnm.deepdive.northernnmhighlights.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.snackbar.Snackbar;
-import edu.cnm.deepdive.nothernnmhighlightsclient.MainActivity;
-import edu.cnm.deepdive.nothernnmhighlightsclient.R;
-import edu.cnm.deepdive.nothernnmhighlightsclient.viewmodel.LoginViewModel;
+import edu.cnm.deepdive.northernnmhighlights.R;
+import edu.cnm.deepdive.northernnmhighlights.databinding.ActivityLoginBinding;
+import edu.cnm.deepdive.northernnmhighlights.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 

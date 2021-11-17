@@ -1,25 +1,24 @@
-package edu.cnm.deepdive.nothernnmhighlightsclient.controller;
+package edu.cnm.deepdive.northernnmhighlights.controller;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import edu.cnm.deepdive.nothernnmhighlightsclient.R;
+import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentFavoritePlaceBinding;
 import edu.cnm.deepdive.nothernnmhighlightsclient.viewmodel.FavoritePlaceViewModel;
 
 public class FavoritePlaceFragment extends Fragment {
 
   private FavoritePlaceViewModel viewModel;
-  private FavoritePlaceBinding binding;
+  private FragmentFavoritePlaceBinding binding;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
       ViewGroup container, Bundle savedInstanceState) {
-    binding = FavoritePlaceBinding.inflate(inflater, container, false);
+    binding = FragmentFavoritePlaceBinding.inflate(inflater, container, false);
     return binding.getRoot();
   }
 

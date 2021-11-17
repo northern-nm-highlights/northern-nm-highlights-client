@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/mobile_navigation"
+  app:startDestination="@+id/nav_favorites">
+
+  <fragment
+    android:id="@+id/nav_favorites"
+    android:name="edu.cnm.deepdive.northernnmhighlights.controller.FavoritePlaceFragment"
+    android:label="@string/favorite_place_title"
+    tools:layout="@layout/fragment_favorite_place"/>
+
+  <fragment
+    android:id="@+id/nav_place_types"
+    android:name="edu.cnm.deepdive.northernnmhighlights.controller.PlaceTypeFragment"
+    android:label="@string/title_place_types"
+    tools:layout="@layout/fragment_place_type"/>
+
+</navigation>
