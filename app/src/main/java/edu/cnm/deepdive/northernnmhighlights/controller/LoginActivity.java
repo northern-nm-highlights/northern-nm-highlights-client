@@ -1,11 +1,10 @@
 package edu.cnm.deepdive.northernnmhighlights.controller;
 
 import android.content.Intent;
+import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.snackbar.Snackbar;
@@ -19,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
   private LoginViewModel viewModel;
   private ActivityResultLauncher<Intent> launcher;
   private boolean silent;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,5 +50,4 @@ public class LoginActivity extends AppCompatActivity {
       setContentView(binding.getRoot());
     }
   }
-
 }

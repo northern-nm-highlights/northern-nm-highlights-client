@@ -12,11 +12,10 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/Theme.NorthernNMHighlights"
-    tools:ignore="AllowBackup">
+    android:theme="@style/Theme.NorthernNMHighlights">
     <activity
-      android:name="edu.cnm.deepdive.northernnmhighlights.controller.LoginActivity"
-      android:exported="true">
+      android:exported="true"
+      android:name=".controller.LoginActivity">
       <intent-filter>
 
         <!-- Launches app -->
@@ -25,8 +24,12 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name="edu.cnm.deepdive.northernnmhighlights.controller.MainActivity">
+    <activity
+      android:label="@string/app_name"
+      android:name=".controller.MainActivity"
+      android:theme="@style/Theme.NorthernNMHighlights.NoActionBar">
     </activity>
+
   </application>
 
 </manifest>
