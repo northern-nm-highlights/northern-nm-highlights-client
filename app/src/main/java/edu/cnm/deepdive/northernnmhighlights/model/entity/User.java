@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northernnmhighlights.model.entity;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -29,26 +30,34 @@ import java.util.UUID;
 public class User {
 
   @PrimaryKey(autoGenerate = true)
-  private UUID userId;
+  @ColumnInfo(name = "user_id")
+  private long id;
 
   @Expose
   @NonNull
+  @ColumnInfo(name = "oauth_key")
   private String oauthKey;
 
   @Expose
   @NonNull
+  @ColumnInfo(name = "display_name")
   private String displayName;
 
   @Expose
   @NonNull
+  @ColumnInfo(name = "external_key")
   private UUID externalKey;
 
   @Expose
   @NonNull
   private Date created;
 
-  public UUID getUserId() {
-    return userId;
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 
   @NonNull
