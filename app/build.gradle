@@ -82,6 +82,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
 
+    // Room libraries & connectors
+    def roomVersion = '2.3.0'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+    
     // Gson library
     implementation 'com.google.code.gson:gson:2.8.9'
 

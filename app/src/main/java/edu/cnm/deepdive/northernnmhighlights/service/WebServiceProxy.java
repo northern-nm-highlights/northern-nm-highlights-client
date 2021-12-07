@@ -10,16 +10,16 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public interface NorthernNMHighlightsWebService {
+public interface WebServiceProxy {
 
-  static NorthernNMHighlightsWebService getInstance() {
+  static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
 
   }
 
   class InstanceHolder {
 
-    private static final NorthernNMHighlightsWebService INSTANCE;
+    private static final WebServiceProxy INSTANCE;
 
     static {
       Gson gson = new GsonBuilder()
@@ -36,7 +36,7 @@ public interface NorthernNMHighlightsWebService {
           .client(client)
           .baseUrl(BuildConfig.BASE_URL)
           .build();
-      INSTANCE = retrofit.create(NorthernNMHighlightsWebService.class);
+      INSTANCE = retrofit.create(WebServiceProxy.class);
 
 
     }
