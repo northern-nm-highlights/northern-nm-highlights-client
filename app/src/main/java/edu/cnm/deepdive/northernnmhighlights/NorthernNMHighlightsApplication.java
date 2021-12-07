@@ -11,5 +11,6 @@ public class NorthernNMHighlightsApplication extends Application {
     super.onCreate();
     GoogleSignInRepository.setContext(this);
     Stetho.initializeWithDefaults(this);
+    // TODO Intialize database.
   }
 }
