@@ -52,12 +52,13 @@ public class FavoritePlace {
   @Expose
   private String cityName;
 
+  @ColumnInfo(name = "place_id", index = true)
+  @NonNull
+  @Expose
+  private String placeId;
+
   @ColumnInfo(name = "place_name", index = true)
   private String placeName;
-
-  @Expose
-  @ColumnInfo(index = true)
-  private String placeId;
 
   public long getId() {
     return id;
