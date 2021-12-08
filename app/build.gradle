@@ -38,6 +38,10 @@ android {
 
         buildConfigField 'String', 'CLIENT_ID', quoted(
                 getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'client_id'))
+
+        resValue 'string', 'api_key',
+                getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'api_key')
+
     }
 
     buildTypes {
@@ -107,6 +111,7 @@ dependencies {
     // Google libraries
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.0'
+    implementation 'com.google.android.libraries.places:places:2.5.0'
 
     // Stetho (Chromium inspection) library
     implementation 'com.facebook.stetho:stetho:1.6.0'
