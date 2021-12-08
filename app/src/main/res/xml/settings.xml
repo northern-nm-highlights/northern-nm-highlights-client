@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <SeekBarPreference
+    android:key="@string/title_places_pref_key"
+    app:min="@integer/title_places_pref_min"
+    android:max="@integer/title_places_pref_max"
+    android:defaultValue="@integer/title_places_pref_default"
+    app:seekBarIncrement="@integer/title_places_pref_increment"
+    app:showSeekBarValue="true"
+    android:title="@string/title_places_pref_title"
+    android:icon="@drawable/ic_baseline_format_list_numbered_24"/>
+
+  <CheckBoxPreference
+    android:key="@string/place_type_filter_enabled"
+    android:selectable="true"
+    android:title="@string/place_type_filter_pref_title"
+    android:icon="@drawable/ic_baseline_filter_list_24"/>
+
+</PreferenceScreen>

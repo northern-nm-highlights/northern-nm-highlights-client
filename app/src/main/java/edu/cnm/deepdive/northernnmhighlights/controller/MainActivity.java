@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
+import edu.cnm.deepdive.northernnmhighlights.MobileNavigationDirections;
 import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.LoginViewModel;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
   private AppBarConfiguration appBarConfiguration;
   private ActivityMainBinding binding;
   private LoginViewModel loginViewModel;
+  private NavController navController;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         R.id.nav_favorites, R.id.nav_place_types)
         .setDrawerLayout(drawer)
         .build();
-    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+    navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     NavigationUI.setupWithNavController(navigationView, navController);
   }
@@ -69,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     boolean handled;
-    if (item.getItemId() == R.id.sign_out) {
+    int itemId = item.getItemId();
+    if (itemId == R.id.sign_out) {
       loginViewModel.signOut();
+      handled = true;
+    } else if (itemId == R.id.action_settings) {
+      navController.navigate(MobileNavigationDirections.openSettings());
       handled = true;
     } else {
       handled = super.onOptionsItemSelected(item);
