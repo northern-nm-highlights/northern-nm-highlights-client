@@ -17,4 +17,9 @@
     android:label="@string/title_place_types"
     tools:layout="@layout/fragment_place_type"/>
 
+  <fragment
+    android:id="@+id/nav_map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:label="@string/map_title"/>
+
 </navigation>
