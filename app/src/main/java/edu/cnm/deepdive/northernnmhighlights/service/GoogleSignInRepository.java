@@ -95,7 +95,7 @@ public class GoogleSignInRepository {
   public void logAccount(GoogleSignInAccount account) {
     if (account != null) {
       Log.d(getClass().getSimpleName(),
-          (account.getIdToken()!=null) ? getBearerToken(account) : "(none)");
+          (account.getIdToken() != null) ? getBearerToken(account) : "(none)");
     }
   }
 

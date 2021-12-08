@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northernnmhighlights.controller;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -36,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
-
+    loginViewModel.getUser().observe(this,(user) -> {
+      Log.d(getClass().getSimpleName(), user.getDisplayName());
+    });
+    loginViewModel.loadProfile();
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
