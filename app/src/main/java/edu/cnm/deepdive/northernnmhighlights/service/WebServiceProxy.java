@@ -8,7 +8,6 @@ import edu.cnm.deepdive.northernnmhighlights.model.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.util.List;
-import java.util.UUID;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -21,7 +20,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface WebServiceProxy {
 
