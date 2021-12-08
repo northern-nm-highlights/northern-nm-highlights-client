@@ -25,11 +25,9 @@ import java.util.UUID;
     }
 
 )
-
-
 public class PlaceType {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "place_type")
+    @ColumnInfo(name = "place_type_id")
     private long id;
 
     @NonNull
