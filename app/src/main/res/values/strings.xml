@@ -9,4 +9,8 @@
   <string name="favorite_place_title">Favorite Places</string>
   <string name="title_place_types">Place Types</string>
   <string name="map_title">Map</string>
+  <string name="title_places_pref_key">title_places_pref</string>
+  <string name="title_places_pref_title">Number of titles to show for places</string>
+  <string name="place_type_filter_pref_title">Filter for place types</string>
+  <string name="place_type_filter_enabled">place_type_filter_pref</string>
 </resources>

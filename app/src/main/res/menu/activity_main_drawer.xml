@@ -3,7 +3,9 @@
   xmlns:tools="http://schemas.android.com/tools"
   tools:showIn="navigation_view">
 
-  <group android:checkableBehavior="single">
+  <group
+    android:id="@+id/main_navigation"
+    android:checkableBehavior="single">
     <item
       android:id="@+id/nav_favorites"
       android:icon="@drawable/ic_baseline_favorite_24"
@@ -18,4 +20,16 @@
       android:icon="@drawable/ic_baseline_map_24"
       android:title="@string/map_title"/>
   </group>
+
+  <group
+    android:id="@+id/secondary_navigation"
+    android:checkableBehavior="none">
+
+    <item
+      android:id="@+id/nav_settings"
+      android:icon="@drawable/ic_baseline_settings_24"
+      android:title="@string/action_settings"/>
+
+  </group>
+
 </menu>

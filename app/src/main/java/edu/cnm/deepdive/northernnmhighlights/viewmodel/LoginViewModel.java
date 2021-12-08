@@ -56,7 +56,7 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
             .refresh()
             .subscribe(
                 account::postValue,
-                this::postThrowable
+                (throwable) -> account.postValue(null)
             )
     );
   }
