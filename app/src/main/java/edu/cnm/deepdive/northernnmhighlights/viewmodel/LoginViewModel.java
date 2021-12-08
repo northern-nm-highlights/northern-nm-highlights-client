@@ -12,21 +12,27 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import edu.cnm.deepdive.northernnmhighlights.model.entity.User;
 import edu.cnm.deepdive.northernnmhighlights.service.GoogleSignInRepository;
+import edu.cnm.deepdive.northernnmhighlights.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class LoginViewModel extends AndroidViewModel implements DefaultLifecycleObserver {
 
-  private final GoogleSignInRepository repository;
+  private final GoogleSignInRepository signInRepository;
+  private final UserRepository userRepository;
   private final MutableLiveData<GoogleSignInAccount> account;
+  private final MutableLiveData<User> user;
   private final MutableLiveData<Throwable> throwable;
   private final CompositeDisposable pending;
 
   public LoginViewModel(@NonNull Application application) {
     super(application);
-    repository = GoogleSignInRepository.getInstance();
+    signInRepository = GoogleSignInRepository.getInstance();
+    userRepository = new UserRepository(application);
     account = new MutableLiveData<>();
+    user = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
     pending = new CompositeDisposable();
     refresh();
@@ -36,27 +42,31 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
     return account;
   }
 
+  public LiveData<User> getUser() {
+    return user;
+  }
+
   public LiveData<Throwable> getThrowable() {
     return throwable;
   }
 
   public void refresh() {
     pending.add(
-        repository
+        signInRepository
             .refresh()
             .subscribe(
                 account::postValue,
-                (throwable) -> account.postValue(null)
+                this::postThrowable
             )
     );
   }
 
   public void startSignIn(ActivityResultLauncher<Intent> launcher) {
-    repository.startSignIn(launcher);
+    signInRepository.startSignIn(launcher);
   }
 
   public void completeSignIn(ActivityResult result) {
-    Disposable disposable = repository
+    Disposable disposable = signInRepository
         .completeSignIn(result)
         .subscribe(
             account::postValue,
@@ -66,7 +76,7 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
   }
 
   public void signOut() {
-    Disposable disposable = repository
+    Disposable disposable = signInRepository
         .signOut()
         .doFinally(() -> account.postValue(null))
         .subscribe(
@@ -74,6 +84,16 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
             this::postThrowable
         );
     pending.add(disposable);
+  }
+
+  // Testing profile round trip
+  public void loadProfile() {
+    Disposable disposable = userRepository
+        .getProfile()
+        .subscribe(
+            user::postValue,
+            this::postThrowable
+        );
   }
 
   @Override
