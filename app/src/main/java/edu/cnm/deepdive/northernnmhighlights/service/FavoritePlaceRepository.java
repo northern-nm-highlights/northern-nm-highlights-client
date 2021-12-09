@@ -2,6 +2,7 @@ package edu.cnm.deepdive.northernnmhighlights.service;
 
 import android.content.Context;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.FavoritePlace;
+import edu.cnm.deepdive.northernnmhighlights.model.entity.PlaceType;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -48,5 +49,11 @@ public class FavoritePlaceRepository {
       .subscribeOn(Schedulers.io());
   }
 
+  public Single<List<PlaceType>> getPlaces() {
+    return repository
+        .refreshBearerToken()
+        .flatMap(proxy::getPlaces)
+        .subscribeOn(Schedulers.io());
+  }
 }
 

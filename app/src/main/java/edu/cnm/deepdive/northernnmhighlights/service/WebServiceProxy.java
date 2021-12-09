@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.northernnmhighlights.BuildConfig;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.FavoritePlace;
+import edu.cnm.deepdive.northernnmhighlights.model.entity.PlaceType;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -22,6 +23,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface WebServiceProxy {
+
+
+  @GET("place-types")
+  Single<List<PlaceType>> getPlaces(@Header("Authorization") String bearerToken);
 
 
   @GET("users/me")
