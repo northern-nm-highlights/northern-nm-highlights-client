@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northernnmhighlights.service;
 
 import android.content.Context;
+import edu.cnm.deepdive.northernnmhighlights.model.dao.PlaceTypeDao;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.FavoritePlace;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.PlaceType;
 import io.reactivex.Completable;
@@ -14,6 +15,7 @@ public class FavoritePlaceRepository {
   private final Context context;
   private final GoogleSignInRepository repository;
   private final WebServiceProxy proxy;
+  private final PlaceTypeDao placeTypeDao;
 
   public FavoritePlaceRepository(Context context) {
     this.context = context;
