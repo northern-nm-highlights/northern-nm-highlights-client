@@ -55,9 +55,12 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     LatLng northNm = new LatLng(35.691544, -105.944183);
     // Set map to terrain mode.
     googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-    map.setOnMyLocationButtonClickListener((OnMyLocationButtonClickListener) this);
-    map.setOnMyLocationClickListener((OnMyLocationClickListener) this);
-    enableMyLocation();
+    googleMap.getUiSettings().isMyLocationButtonEnabled();
+    googleMap.getUiSettings().isZoomControlsEnabled();
+    googleMap.getUiSettings().isZoomGesturesEnabled();
+//    map.setMyLocationEnabled(true);
+    map.setOnMyLocationButtonClickListener(this);
+    map.setOnMyLocationClickListener(this);
   }
 
   private void enableMyLocation() {
