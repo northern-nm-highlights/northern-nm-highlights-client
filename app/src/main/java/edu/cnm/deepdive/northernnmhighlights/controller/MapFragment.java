@@ -13,7 +13,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentMapBinding;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +32,12 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.fragment_map);
+
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+    assert mapFragment != null;
+    mapFragment.getMapAsync(this);
     // TODO read any arguments passed to the fragment.
   }
 

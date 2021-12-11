@@ -35,12 +35,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.fragment_map);
-
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.map);
-    assert mapFragment != null;
-    mapFragment.getMapAsync(this);
 
     loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     getLifecycle().addObserver(loginViewModel);
