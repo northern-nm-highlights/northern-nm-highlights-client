@@ -13,19 +13,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import edu.cnm.deepdive.northernnmhighlights.MobileNavigationDirections;
 import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.LoginViewModel;
-import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
 
   private AppBarConfiguration appBarConfiguration;
   private ActivityMainBinding binding;
@@ -35,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    setContentView(R.layout.fragment_map);
 
     loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     getLifecycle().addObserver(loginViewModel);
@@ -53,10 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     loginViewModel.loadProfile();
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
-
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.map);
-    mapFragment.getMapAsync(this);
 
     setSupportActionBar(binding.appBarMain.toolbar);
     DrawerLayout drawer = binding.drawerLayout;
@@ -101,12 +89,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
     return NavigationUI.navigateUp(navController, appBarConfiguration)
         || super.onSupportNavigateUp();
-  }
-
-  @Override
-  public void onMapReady(@NonNull @NotNull GoogleMap googleMap) {
-    googleMap.addMarker(new MarkerOptions()
-        .position(new LatLng(0, 0))
-        .title("Marker"));
   }
 }
