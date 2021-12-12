@@ -42,6 +42,14 @@ android {
         resValue 'string', 'api_key',
                 getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'api_key')
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        'room.schemaLocation': "$projectDir/schemas".toString()
+                ]
+            }
+        }
+
     }
 
     buildTypes {

@@ -7,11 +7,14 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 import edu.cnm.deepdive.northernnmhighlights.model.dao.FavoritePlaceDao;
+import edu.cnm.deepdive.northernnmhighlights.model.dao.PlaceTypeDao;
+import edu.cnm.deepdive.northernnmhighlights.model.dao.UserDao;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.FavoritePlace;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.PlaceType;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.User;
 import edu.cnm.deepdive.northernnmhighlights.service.NnmhlDatabase.Converters;
 import java.util.Date;
+import java.util.UUID;
 
 @Database(
     entities = {FavoritePlace.class, PlaceType.class, User.class},
@@ -32,6 +35,9 @@ public abstract class NnmhlDatabase extends RoomDatabase {
 
   public abstract FavoritePlaceDao getFavoritePlaceDao();
 
+  public abstract PlaceTypeDao getPlaceTypeDao();
+
+  public abstract UserDao getUserDao();
 
   private static class InstanceHolder {
 
@@ -53,6 +59,14 @@ public abstract class NnmhlDatabase extends RoomDatabase {
       return (value != null) ? new Date(value) : null;
     }
 
+    @TypeConverter
+    public static String toString(UUID value) {
+      return (value != null) ? value.toString() : null;
+    }
 
+    @TypeConverter
+    public static UUID toUUID(String value) {
+      return (value != null) ? UUID.fromString(value) : null;
+    }
   }
 }

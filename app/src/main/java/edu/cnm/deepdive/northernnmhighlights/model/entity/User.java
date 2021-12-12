@@ -16,16 +16,7 @@ import java.util.UUID;
         @Index(value = {"oauth_key"}, unique = true),
         @Index(value = {"display_name"}, unique = true),
         @Index(value = {"external_key"}, unique = true)
-    },
-    foreignKeys = {
-        @ForeignKey(
-            entity = FavoritePlace.class,
-            parentColumns = "user_id",
-            childColumns = "user_id",
-            onDelete = ForeignKey.NO_ACTION
-        )
     }
-
 )
 public class User {
 
