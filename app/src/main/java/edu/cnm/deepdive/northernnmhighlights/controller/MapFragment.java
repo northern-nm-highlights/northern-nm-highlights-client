@@ -32,12 +32,6 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.fragment_map);
-
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.map);
-    assert mapFragment != null;
-    mapFragment.getMapAsync(this);
     // TODO read any arguments passed to the fragment.
   }
 
@@ -69,18 +63,6 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
 //    map.setMyLocationEnabled(true);
     map.setOnMyLocationButtonClickListener(this);
     map.setOnMyLocationClickListener(this);
-  }
-
-  private void enableMyLocation() {
-//    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//        == PackageManager.PERMISSION_GRANTED) {
-//      if (map != null) {
-//        map.setMyLocationEnabled(true);
-//      }
-//    } else {
-//      // Permission to access the location is missing. Show rationale and request permission
-//      PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE, Manifest.permission.ACCESS_FINE_LOCATION, true);
-//    }
   }
 
   @Override
