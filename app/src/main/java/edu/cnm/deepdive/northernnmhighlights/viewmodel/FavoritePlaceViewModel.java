@@ -18,7 +18,7 @@ public class FavoritePlaceViewModel extends AndroidViewModel {
 
   private final FavoritePlaceRepository placeRepository;
   private final LocationRepository locationRepository;
-  private final MutableLiveData<List<PlaceType>> placeList;
+  private final MutableLiveData<List<PlaceType>> placeTypes;
   private final MutableLiveData<Location> location;
   private final MutableLiveData<Throwable> throwable;
   private final CompositeDisposable pending;
@@ -29,29 +29,18 @@ public class FavoritePlaceViewModel extends AndroidViewModel {
     placeRepository = new FavoritePlaceRepository(application);
     locationRepository = LocationRepository.getInstance();
     throwable = new MutableLiveData<>();
-    placeList = new MutableLiveData<>();
+    placeTypes = new MutableLiveData<>();
     location = new MutableLiveData<>();
     pending = new CompositeDisposable();
     subscribeToLocation();
   }
 
   public LiveData<List<PlaceType>> getPlaceTypes() {
-    return repository.getPlaceTypes();
+    return placeRepository.getPlaceTypes();
   }
 
   public LiveData<Location> getLocation() {
     return location;
-  }
-
-  public void loadPlaceTypes() {
-    pending.add(
-        placeRepository
-            .getPlaces()
-            .subscribe(
-                placeList::postValue,
-                this::postThrowable
-            )
-    );
   }
 
   public void subscribeToLocation() {
