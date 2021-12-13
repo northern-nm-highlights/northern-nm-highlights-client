@@ -24,22 +24,46 @@ import retrofit2.http.Path;
 
 public interface WebServiceProxy {
 
-
+  /**
+   * This will get you a list of place types.
+   * @param bearerToken Its a specialized identifier for a specific user.
+   * @return   A list of {@link PlaceType}
+   */
   @GET("place-types")
   Single<List<PlaceType>> getPlaces(@Header("Authorization") String bearerToken);
 
-
+  /**
+   * This will log what user it is.
+   * @param bearerToken
+   * @return {@link User} profile
+   */
   @GET("users/me")
   Single<User> getProfile(@Header("Authorization") String bearerToken);
 
-
+  /**
+   * Will get you a list favorite places.
+   * @param bearerToken
+   * @return List {@link FavoritePlace}
+   */
   @GET("users/me/favorites")
   Single<List<FavoritePlace>> getFavorites(@Header("Authorization") String bearerToken);
 
+  /**
+   * This will allow you to get a single favorite place.
+   * @param key
+   * @param bearerToken
+   * @return {@link FavoritePlace}
+   */
   @GET("users/me/favorites/{key}")
   Single<FavoritePlace> getFavorite(@Path("key") String key,
       @Header("Authorization") String bearerToken);
 
+  /**
+   * Will add a favorite to your database.
+   * @param favorite
+   * @param bearerToken
+   * @return {@link FavoritePlace}
+   */
   @POST("users/me/favorites")
   Single<FavoritePlace> addFavorite(@Body FavoritePlace favorite,
       @Header("Authorization") String bearerToken);
