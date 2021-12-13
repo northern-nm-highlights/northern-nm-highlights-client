@@ -42,6 +42,14 @@ android {
         resValue 'string', 'api_key',
                 getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'api_key')
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        'room.schemaLocation': "$projectDir/schemas".toString()
+                ]
+            }
+        }
+
     }
 
     buildTypes {
@@ -152,7 +160,7 @@ android.applicationVariants.all { variant ->
         exclude '**/R\$**'
         exclude '**/BuildConfig*'
 
-        destinationDir = file("$projectDir/../docs/api")
+//        destinationDir = file("$projectDir/../docs/api")
 
         options {
             windowTitle = "$rootProject.name (${project.android.defaultConfig.versionName})"

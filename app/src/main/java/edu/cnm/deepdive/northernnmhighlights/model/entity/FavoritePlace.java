@@ -23,9 +23,7 @@ import java.util.UUID;
             onDelete = ForeignKey.CASCADE
         )
     }
-
 )
-
 public class FavoritePlace {
 
 
