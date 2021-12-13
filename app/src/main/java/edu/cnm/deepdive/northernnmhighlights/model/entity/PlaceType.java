@@ -73,4 +73,10 @@ public class PlaceType {
   public void setCreated(@NonNull Date created) {
     this.created = created;
   }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return displayName;
+  }
 }
