@@ -1,0 +1,263 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "d62559567a76575ac5f5694cc1c8cc14",
+    "entities": [
+      {
+        "tableName": "favorite_place",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`favorite_place_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `external_key` TEXT NOT NULL, `user_id` INTEGER NOT NULL, `created` INTEGER NOT NULL, `city_name` TEXT NOT NULL, `place_id` TEXT NOT NULL, `place_name` TEXT, FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "favorite_place_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "externalKey",
+            "columnName": "external_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cityName",
+            "columnName": "city_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "placeId",
+            "columnName": "place_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "placeName",
+            "columnName": "place_name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "favorite_place_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_favorite_place_external_key",
+            "unique": true,
+            "columnNames": [
+              "external_key"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_favorite_place_external_key` ON `${TABLE_NAME}` (`external_key`)"
+          },
+          {
+            "name": "index_favorite_place_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          },
+          {
+            "name": "index_favorite_place_created",
+            "unique": false,
+            "columnNames": [
+              "created"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_created` ON `${TABLE_NAME}` (`created`)"
+          },
+          {
+            "name": "index_favorite_place_city_name",
+            "unique": false,
+            "columnNames": [
+              "city_name"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_city_name` ON `${TABLE_NAME}` (`city_name`)"
+          },
+          {
+            "name": "index_favorite_place_place_id",
+            "unique": false,
+            "columnNames": [
+              "place_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_place_id` ON `${TABLE_NAME}` (`place_id`)"
+          },
+          {
+            "name": "index_favorite_place_place_name",
+            "unique": false,
+            "columnNames": [
+              "place_name"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_place_name` ON `${TABLE_NAME}` (`place_name`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "user",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "place_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`place_type_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `external_key` TEXT NOT NULL, `display_name` TEXT NOT NULL, `created` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "place_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "externalKey",
+            "columnName": "external_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "display_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "place_type_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_place_type_external_key",
+            "unique": true,
+            "columnNames": [
+              "external_key"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_place_type_external_key` ON `${TABLE_NAME}` (`external_key`)"
+          },
+          {
+            "name": "index_place_type_display_name",
+            "unique": false,
+            "columnNames": [
+              "display_name"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_place_type_display_name` ON `${TABLE_NAME}` (`display_name`)"
+          },
+          {
+            "name": "index_place_type_created",
+            "unique": false,
+            "columnNames": [
+              "created"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_place_type_created` ON `${TABLE_NAME}` (`created`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "user",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `oauth_key` TEXT NOT NULL, `display_name` TEXT NOT NULL, `external_key` TEXT NOT NULL, `created` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oauthKey",
+            "columnName": "oauth_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "display_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "externalKey",
+            "columnName": "external_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "user_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_user_oauth_key",
+            "unique": true,
+            "columnNames": [
+              "oauth_key"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_oauth_key` ON `${TABLE_NAME}` (`oauth_key`)"
+          },
+          {
+            "name": "index_user_display_name",
+            "unique": true,
+            "columnNames": [
+              "display_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_display_name` ON `${TABLE_NAME}` (`display_name`)"
+          },
+          {
+            "name": "index_user_external_key",
+            "unique": true,
+            "columnNames": [
+              "external_key"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_external_key` ON `${TABLE_NAME}` (`external_key`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd62559567a76575ac5f5694cc1c8cc14')"
+    ]
+  }
+}

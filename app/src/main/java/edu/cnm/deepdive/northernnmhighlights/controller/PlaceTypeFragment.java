@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentPlaceTypeBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.FavoritePlaceViewModel;
 
-public class PlaceTypeFragment extends Fragment implements OnItemSelectedListener {
+public class PlaceTypeFragment extends Fragment {
 
   private FragmentPlaceTypeBinding binding;
   private FavoritePlaceViewModel viewModel;
@@ -32,16 +32,10 @@ public class PlaceTypeFragment extends Fragment implements OnItemSelectedListene
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(getActivity()).get(FavoritePlaceViewModel.class);
+    viewModel.getPlaceTypes().observe(getViewLifecycleOwner(), (placeTypes) -> {
+     // TODO Create an instance appropriate adapter and attach to list view or recycler view.
+    });
   }
 
 
-  @Override
-  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-  }
-
-  @Override
-  public void onNothingSelected(AdapterView<?> parent) {
-
-  }
 }

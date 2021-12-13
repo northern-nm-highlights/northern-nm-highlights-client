@@ -35,8 +35,8 @@ public class FavoritePlaceViewModel extends AndroidViewModel {
     subscribeToLocation();
   }
 
-  public LiveData<List<PlaceType>> getPlaceList() {
-    return placeList;
+  public LiveData<List<PlaceType>> getPlaceTypes() {
+    return repository.getPlaceTypes();
   }
 
   public LiveData<Location> getLocation() {

@@ -7,76 +7,70 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity(
-    tableName = "favorite_place",
+    tableName = "place_type",
     indices = {
         @Index(value = {"external_key"}, unique = true)
-    },
-    foreignKeys = {
-        @ForeignKey(
-            entity = User.class,
-            parentColumns = "user_id",
-            childColumns = "user_id",
-            onDelete = ForeignKey.CASCADE
-        )
     }
-
 )
 public class PlaceType {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "place_type_id")
-    private long id;
 
-    @NonNull
-    @Expose
-    @ColumnInfo(name = "external_key")
-    private UUID externalKey;
+  @PrimaryKey(autoGenerate = true)
+  @ColumnInfo(name = "place_type_id")
+  private long id;
 
-    @ColumnInfo(name = "display_name", index = true)
-    @NonNull
-    @Expose
-    private String displayName;
+  @NonNull
+  @Expose
+  @ColumnInfo(name = "external_key")
+  @SerializedName("id")
+  private UUID externalKey;
 
-    @NonNull
-    @Expose
-    @ColumnInfo(index = true)
-    private Date created;
+  @ColumnInfo(name = "display_name", index = true)
+  @NonNull
+  @Expose
+  private String displayName;
 
-    public long getId() {
-        return id;
-    }
+  @NonNull
+  @Expose
+  @ColumnInfo(index = true)
+  private Date created;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    @NonNull
-    public UUID getExternalKey() {
-        return externalKey;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public void setExternalKey(@NonNull UUID externalKey) {
-        this.externalKey = externalKey;
-    }
+  @NonNull
+  public UUID getExternalKey() {
+    return externalKey;
+  }
 
-    @NonNull
-    public String getDisplayName() {
-        return displayName;
-    }
+  public void setExternalKey(@NonNull UUID externalKey) {
+    this.externalKey = externalKey;
+  }
 
-    public void setDisplayName(@NonNull String displayName) {
-        this.displayName = displayName;
-    }
+  @NonNull
+  public String getDisplayName() {
+    return displayName;
+  }
 
-    @NonNull
-    public Date getCreated() {
-        return created;
-    }
+  public void setDisplayName(@NonNull String displayName) {
+    this.displayName = displayName;
+  }
 
-    public void setCreated(@NonNull Date created) {
-        this.created = created;
-    }
+  @NonNull
+  public Date getCreated() {
+    return created;
+  }
+
+  public void setCreated(@NonNull Date created) {
+    this.created = created;
+  }
 }
