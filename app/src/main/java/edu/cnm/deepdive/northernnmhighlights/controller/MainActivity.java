@@ -13,11 +13,17 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import edu.cnm.deepdive.northernnmhighlights.MobileNavigationDirections;
 import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.LoginViewModel;
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     // menu should be considered as top level destinations.
     appBarConfiguration = new AppBarConfiguration.Builder(
 //        TODO change names of layouts.
-        R.id.nav_favorites, R.id.nav_place_types)
+        R.id.nav_map, R.id.nav_favorites, R.id.nav_place_types)
         .setDrawerLayout(drawer)
         .build();
     navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -90,4 +96,11 @@ public class MainActivity extends AppCompatActivity {
     return NavigationUI.navigateUp(navController, appBarConfiguration)
         || super.onSupportNavigateUp();
   }
+
+//  @Override
+//  public void onMapReady(@NonNull @NotNull GoogleMap googleMap) {
+//    googleMap.addMarker(new MarkerOptions()
+//        .position(new LatLng(35.691544, -105.944183))
+//        .title("Marker"));
+//  }
 }
