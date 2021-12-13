@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.location.Location;
 import android.os.Looper;
+import android.util.Log;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -25,7 +26,7 @@ public class LocationRepository {
 
   private final FusedLocationProviderClient locationClient;
 
-  private ObservableEmitter locationEmitter;
+  private Callback callback;
 
   private LocationRepository() {
     locationClient = LocationServices.getFusedLocationProviderClient(context);
@@ -52,24 +53,31 @@ public class LocationRepository {
 
   @SuppressLint("MissingPermission")
   public Observable<Location> getCurrentLocation() {
-    return Observable.create((emitter) -> {
-      LocationRequest request = LocationRequest.create();
-      request.setInterval(15000);
-      request.setFastestInterval(5000);
-      request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-      LocationSettingsRequest settingsRequest = new Builder()
-          .addLocationRequest(request)
-          .build();
-      SettingsClient settingsClient = LocationServices.getSettingsClient(context);
-      settingsClient
-          .checkLocationSettings(settingsRequest)
-          .addOnSuccessListener((response) -> { /* TODO use response to see what location services are available. */ })
-          .addOnFailureListener((throwable) -> { /* TODO fail gracefully */ });
-      locationClient.requestLocationUpdates(request, new Callback(emitter), Looper.myLooper());
-    });
+    return Observable
+        .create((ObservableEmitter<Location> emitter) -> {
+          LocationRequest request = LocationRequest.create();
+          request.setInterval(15000);
+          request.setFastestInterval(5000);
+          request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+          LocationSettingsRequest settingsRequest = new Builder()
+              .addLocationRequest(request)
+              .build();
+          SettingsClient settingsClient = LocationServices.getSettingsClient(context);
+          settingsClient
+              .checkLocationSettings(settingsRequest)
+              .addOnSuccessListener((response) -> {
+                /* TODO use response to see what location services are available. */
+              })
+              .addOnFailureListener((throwable) -> {
+                /* TODO fail gracefully */
+              });
+          callback = new Callback(emitter);
+          locationClient.requestLocationUpdates(request, callback, Looper.myLooper());
+        })
+        .observeOn(Schedulers.io());
   }
 
-  private class Callback extends LocationCallback {
+  private static class Callback extends LocationCallback {
 
     private final ObservableEmitter<Location> emitter;
 
@@ -80,12 +88,14 @@ public class LocationRepository {
     @Override
     public void onLocationResult(LocationResult locationResult) {
       super.onLocationResult(locationResult);
+      Log.d(getClass().getSimpleName(), locationResult.getLastLocation().toString());
       emitter.onNext(locationResult.getLastLocation());
     }
 
     @Override
     public void onLocationAvailability(LocationAvailability locationAvailability) {
       super.onLocationAvailability(locationAvailability);
+      Log.d(getClass().getSimpleName(), locationAvailability.toString());
     }
   }
 
