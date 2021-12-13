@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
@@ -40,6 +42,9 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     binding = FragmentMapBinding.inflate(inflater, container, false);
+    SupportMapFragment fragment =
+        (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+    fragment.getMapAsync(this);
     // TODO Attach event-listener to controls.
     return binding.getRoot();
   }
@@ -57,12 +62,12 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     LatLng northNm = new LatLng(35.691544, -105.944183);
     // Set map to terrain mode.
     googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+    CameraUpdate update = CameraUpdateFactory
+        .newLatLngZoom(northNm, 6);
+    googleMap.moveCamera(update);
     googleMap.getUiSettings().isMyLocationButtonEnabled();
-    googleMap.getUiSettings().isZoomControlsEnabled();
+    googleMap.getUiSettings().setZoomControlsEnabled(true);
     googleMap.getUiSettings().isZoomGesturesEnabled();
-//    map.setMyLocationEnabled(true);
-    map.setOnMyLocationButtonClickListener(this);
-    map.setOnMyLocationClickListener(this);
   }
 
   @Override

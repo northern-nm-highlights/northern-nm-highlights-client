@@ -25,7 +25,7 @@ import edu.cnm.deepdive.northernnmhighlights.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.LoginViewModel;
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
 
   private AppBarConfiguration appBarConfiguration;
   private ActivityMainBinding binding;
@@ -35,12 +35,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.map);
-    assert mapFragment != null;
-    mapFragment.getMapAsync(this);
 
     loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     getLifecycle().addObserver(loginViewModel);
@@ -103,10 +97,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         || super.onSupportNavigateUp();
   }
 
-  @Override
-  public void onMapReady(@NonNull @NotNull GoogleMap googleMap) {
-    googleMap.addMarker(new MarkerOptions()
-        .position(new LatLng(35.691544, -105.944183))
-        .title("Marker"));
-  }
+//  @Override
+//  public void onMapReady(@NonNull @NotNull GoogleMap googleMap) {
+//    googleMap.addMarker(new MarkerOptions()
+//        .position(new LatLng(35.691544, -105.944183))
+//        .title("Marker"));
+//  }
 }
