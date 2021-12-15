@@ -13,4 +13,7 @@
   <string name="title_places_pref_title">Number of titles to show for places</string>
   <string name="place_type_filter_pref_title">Filter for place types</string>
   <string name="place_type_filter_enabled">place_type_filter_pref</string>
+  <string name="string_hint">Places</string>
+  <string name="search">search_places</string>
+  <string name="current_place_button" translatable="false">Current Place</string>
 </resources>

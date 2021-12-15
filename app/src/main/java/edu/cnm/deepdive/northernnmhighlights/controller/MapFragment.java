@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.maps.CameraUpdate;
@@ -22,20 +23,22 @@ import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentMapBinding;
 import org.jetbrains.annotations.NotNull;
 
 public class MapFragment extends Fragment implements OnMyLocationButtonClickListener,
-    OnMyLocationClickListener,
-    OnMapReadyCallback,
+    OnMyLocationClickListener, OnMapReadyCallback,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
   private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
   private boolean permissionDenied = false;
-  private GoogleMap map;
+  private GoogleMap googleMap;
   private FragmentMapBinding binding;
+
+  SearchView searchView;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     // TODO read any arguments passed to the fragment.
   }
+
 
   @Nullable
   @Override
@@ -65,7 +68,7 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     CameraUpdate update = CameraUpdateFactory
         .newLatLngZoom(northNm, 6);
     googleMap.moveCamera(update);
-    googleMap.getUiSettings().isMyLocationButtonEnabled();
+    googleMap.getUiSettings().setMyLocationButtonEnabled(true);
     googleMap.getUiSettings().setZoomControlsEnabled(true);
     googleMap.getUiSettings().isZoomGesturesEnabled();
   }
