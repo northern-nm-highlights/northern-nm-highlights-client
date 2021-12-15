@@ -16,4 +16,9 @@
   <string name="string_hint">Places</string>
   <string name="search">search_places</string>
   <string name="current_place_button" translatable="false">Current Place</string>
+
+  <string name="access_fine_location_explanation">If permission to access location is granted, place searches can automatically find results relevant to your location.</string>
+  <string name="access_coarse_location_explanation">If permission to access location is granted, place searches can automatically find results relevant to your location.</string>
+  <string name="permissions_title">Permissions</string>
+
 </resources>

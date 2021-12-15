@@ -7,30 +7,38 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.AppBarConfiguration.Builder;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import edu.cnm.deepdive.northernnmhighlights.MobileNavigationDirections;
 import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.LoginViewModel;
+import edu.cnm.deepdive.northernnmhighlights.viewmodel.PermissionsViewModel;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
 
   private AppBarConfiguration appBarConfiguration;
   private ActivityMainBinding binding;
   private LoginViewModel loginViewModel;
+  private PermissionsViewModel permissionsViewModel;
   private NavController navController;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+    ViewModelProvider viewModelProvider = new ViewModelProvider(this);
+    loginViewModel = viewModelProvider.get(LoginViewModel.class);
     getLifecycle().addObserver(loginViewModel);
     loginViewModel.getAccount().observe(this, (account) -> {
       if (account == null) {
@@ -39,10 +47,23 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
-    loginViewModel.getUser().observe(this,(user) -> {
+    loginViewModel.getUser().observe(this, (user) -> {
       Log.d(getClass().getSimpleName(), user.getDisplayName());
     });
     loginViewModel.loadProfile();
+    permissionsViewModel = viewModelProvider.get(PermissionsViewModel.class);
+    permissionsViewModel.getPermissionsToRequest().observe(this, (requests) -> {
+      List<String> permissionsToExplain = requests
+          .stream()
+          .filter((permission) ->
+              ActivityCompat.shouldShowRequestPermissionRationale(this, permission))
+          .collect(Collectors.toList());
+      if (!permissionsToExplain.isEmpty()) {
+        // TODO Explain permissions.
+      } else if (!requests.isEmpty()) {
+        // TODO Request permissions.
+      }
+    });
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
@@ -51,11 +72,10 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView = binding.navView;
     // Passing each menu ID as a set of Ids because each
     // menu should be considered as top level destinations.
-    appBarConfiguration = new AppBarConfiguration.Builder(
-//        TODO change names of layouts.
-        R.id.nav_favorites, R.id.nav_place_types)
-        .setDrawerLayout(drawer)
-        .build();
+    appBarConfiguration =
+        new Builder(R.id.nav_favorites, R.id.nav_place_types, R.id.nav_map)
+            .setOpenableLayout(drawer)
+            .build();
     navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     NavigationUI.setupWithNavController(navigationView, navController);
@@ -86,8 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onSupportNavigateUp() {
-    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+    NavController navController = Navigation.findNavController(this,
+        R.id.nav_host_fragment_content_main);
     return NavigationUI.navigateUp(navController, appBarConfiguration)
         || super.onSupportNavigateUp();
   }
+
+
 }

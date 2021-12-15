@@ -3,11 +3,25 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/mobile_navigation"
-  app:startDestination="@+id/nav_favorites">
+  app:startDestination="@+id/nav_map">
 
   <action
     android:id="@+id/open_settings"
     app:destination="@id/nav_settings"/>
+
+  <action
+    android:id="@+id/open_permission_explanations"
+    app:destination="@id/nav_permission_explanations">
+
+    <argument
+      android:name="permissions_to_explain"
+      app:argType="string[]"/>
+
+    <argument
+      android:name="permissions_to_request"
+      app:argType="string[]"/>
+
+  </action>
 
   <fragment
     android:id="@+id/nav_favorites"
@@ -30,4 +44,18 @@
     android:id="@+id/nav_settings"
     android:name="edu.cnm.deepdive.northernnmhighlights.controller.SettingsFragment"
     android:label="@string/action_settings"/>
+
+  <dialog
+    android:id="@+id/nav_permission_explanations"
+    android:name="edu.cnm.deepdive.northernnmhighlights.controller.PermissionsFragment">
+
+    <argument
+      android:name="permissions_to_explain"
+      app:argType="string[]"/>
+
+    <argument
+      android:name="permissions_to_request"
+      app:argType="string[]"/>
+
+  </dialog>
 </navigation>
