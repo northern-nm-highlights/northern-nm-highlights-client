@@ -39,6 +39,9 @@ android {
         buildConfigField 'String', 'CLIENT_ID', quoted(
                 getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'client_id'))
 
+        buildConfigField 'String', 'PLACES_BASE_URL', quoted(
+                getProperty("$projectDir/../../../services/northern-nm-highlights.properties" ,'places_base_url'))
+
         resValue 'string', 'api_key',
                 getProperty("$projectDir/../../../services/northern-nm-highlights.properties", 'api_key')
 
@@ -95,7 +98,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
 
     // Room libraries & connectors
-    def roomVersion = '2.3.0'
+    def roomVersion = '2.4.0'
     implementation "androidx.room:room-runtime:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-rxjava2:$roomVersion"
@@ -117,8 +120,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // Google libraries
-    implementation 'com.google.android.gms:play-services-auth:19.2.0'
-    implementation 'com.google.android.gms:play-services-maps:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.1'
     implementation 'com.google.android.libraries.places:places:2.5.0'
 
     // Stetho (Chromium inspection) library

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d62559567a76575ac5f5694cc1c8cc14",
+    "identityHash": "771ea1f8e2f7b746b39c0c770d9e53ed",
     "entities": [
       {
         "tableName": "favorite_place",
@@ -64,6 +64,7 @@
             "columnNames": [
               "external_key"
             ],
+            "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_favorite_place_external_key` ON `${TABLE_NAME}` (`external_key`)"
           },
           {
@@ -72,6 +73,7 @@
             "columnNames": [
               "user_id"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_user_id` ON `${TABLE_NAME}` (`user_id`)"
           },
           {
@@ -80,6 +82,7 @@
             "columnNames": [
               "created"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_created` ON `${TABLE_NAME}` (`created`)"
           },
           {
@@ -88,6 +91,7 @@
             "columnNames": [
               "city_name"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_city_name` ON `${TABLE_NAME}` (`city_name`)"
           },
           {
@@ -96,6 +100,7 @@
             "columnNames": [
               "place_id"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_place_id` ON `${TABLE_NAME}` (`place_id`)"
           },
           {
@@ -104,6 +109,7 @@
             "columnNames": [
               "place_name"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_favorite_place_place_name` ON `${TABLE_NAME}` (`place_name`)"
           }
         ],
@@ -123,7 +129,7 @@
       },
       {
         "tableName": "place_type",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`place_type_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `external_key` TEXT NOT NULL, `display_name` TEXT NOT NULL, `created` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`place_type_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `external_key` TEXT NOT NULL, `name` TEXT NOT NULL, `display_name` TEXT NOT NULL, `created` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -134,6 +140,12 @@
           {
             "fieldPath": "externalKey",
             "columnName": "external_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -163,7 +175,17 @@
             "columnNames": [
               "external_key"
             ],
+            "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_place_type_external_key` ON `${TABLE_NAME}` (`external_key`)"
+          },
+          {
+            "name": "index_place_type_name",
+            "unique": true,
+            "columnNames": [
+              "name"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_place_type_name` ON `${TABLE_NAME}` (`name`)"
           },
           {
             "name": "index_place_type_display_name",
@@ -171,6 +193,7 @@
             "columnNames": [
               "display_name"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_place_type_display_name` ON `${TABLE_NAME}` (`display_name`)"
           },
           {
@@ -179,6 +202,7 @@
             "columnNames": [
               "created"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_place_type_created` ON `${TABLE_NAME}` (`created`)"
           }
         ],
@@ -232,6 +256,7 @@
             "columnNames": [
               "oauth_key"
             ],
+            "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_oauth_key` ON `${TABLE_NAME}` (`oauth_key`)"
           },
           {
@@ -240,6 +265,7 @@
             "columnNames": [
               "display_name"
             ],
+            "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_display_name` ON `${TABLE_NAME}` (`display_name`)"
           },
           {
@@ -248,6 +274,7 @@
             "columnNames": [
               "external_key"
             ],
+            "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_external_key` ON `${TABLE_NAME}` (`external_key`)"
           }
         ],
@@ -257,7 +284,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd62559567a76575ac5f5694cc1c8cc14')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '771ea1f8e2f7b746b39c0c770d9e53ed')"
     ]
   }
 }

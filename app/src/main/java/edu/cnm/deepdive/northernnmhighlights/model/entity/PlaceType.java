@@ -14,7 +14,8 @@ import java.util.UUID;
 @Entity(
     tableName = "place_type",
     indices = {
-        @Index(value = {"external_key"}, unique = true)
+        @Index(value = {"external_key"}, unique = true),
+        @Index(value = {"name"}, unique = true)
     }
 )
 public class PlaceType {
@@ -28,6 +29,10 @@ public class PlaceType {
   @ColumnInfo(name = "external_key")
   @SerializedName("id")
   private UUID externalKey;
+
+  @NonNull
+  @Expose
+  private String name;
 
   @ColumnInfo(name = "display_name", index = true)
   @NonNull
@@ -54,6 +59,15 @@ public class PlaceType {
 
   public void setExternalKey(@NonNull UUID externalKey) {
     this.externalKey = externalKey;
+  }
+
+  @NonNull
+  public String getName() {
+    return name;
+  }
+
+  public void setName(@NonNull String name) {
+    this.name = name;
   }
 
   @NonNull

@@ -22,7 +22,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface WebServiceProxy {
+public interface NnmhlServiceProxy {
 
   /**
    * This will get you a list of place types.
@@ -72,14 +72,14 @@ public interface WebServiceProxy {
   Completable removeFavorite(@Path("key") String key,
       @Header("Authorization") String bearerToken);
 
-  static WebServiceProxy getInstance() {
+  static NnmhlServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
 
   }
 
   class InstanceHolder {
 
-    private static final WebServiceProxy INSTANCE;
+    private static final NnmhlServiceProxy INSTANCE;
 
     static {
       Gson gson = new GsonBuilder()
@@ -96,7 +96,7 @@ public interface WebServiceProxy {
           .client(client)
           .baseUrl(BuildConfig.BASE_URL)
           .build();
-      INSTANCE = retrofit.create(WebServiceProxy.class);
+      INSTANCE = retrofit.create(NnmhlServiceProxy.class);
 
 
     }

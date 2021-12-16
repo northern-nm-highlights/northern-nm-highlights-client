@@ -9,12 +9,12 @@ public class UserRepository {
 
   private final Context context;
   private final GoogleSignInRepository repository;
-  private final WebServiceProxy proxy;
+  private final NnmhlServiceProxy proxy;
 
   public UserRepository(Context context) {
     this.context = context;
     repository = GoogleSignInRepository.getInstance();
-    proxy = WebServiceProxy.getInstance();
+    proxy = NnmhlServiceProxy.getInstance();
   }
 
   public Single<User> getProfile() {

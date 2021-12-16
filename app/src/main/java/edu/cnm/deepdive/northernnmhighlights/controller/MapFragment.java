@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.annotation.NonNull;
@@ -27,8 +28,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentMapBinding;
+import edu.cnm.deepdive.northernnmhighlights.model.dto.Place;
+import edu.cnm.deepdive.northernnmhighlights.model.entity.PlaceType;
+import edu.cnm.deepdive.northernnmhighlights.viewmodel.FavoritePlaceViewModel;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.LocationViewModel;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.PermissionsViewModel;
+import java.util.stream.Collectors;
 
 public class MapFragment extends Fragment implements OnMyLocationButtonClickListener,
     OnMyLocationClickListener, OnMapReadyCallback,
@@ -40,6 +45,7 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
   private FragmentMapBinding binding;
   private PermissionsViewModel permissionsViewModel;
   private LocationViewModel locationViewModel;
+  private FavoritePlaceViewModel favoritePlaceViewModel;
   private View mapView;
   private LatLng latLng;
   private GoogleMap map;
@@ -61,8 +67,12 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     fragment.getMapAsync(this);
     mapView = fragment.getView();
     binding.search.setOnClickListener((v) -> {
-      // TODO If latLng isn't null, use it along with the search text to make a search using places API.
-      //  Otherwise, use map.getCameraPosition().target for the location of the search.
+      LatLng latLng = (this.latLng != null) ? this.latLng : map.getCameraPosition().target;
+//      float zoom = map.getCameraPosition().zoom;
+//      double circumference = 256 * Math.pow(2, zoom);
+      int radius = 25_000;
+      PlaceType placeType = (PlaceType) binding.placeType.getSelectedItem();
+      favoritePlaceViewModel.search(placeType, binding.searchText.getText().toString().trim(), latLng, radius);
     });
     // TODO Attach event-listener to controls.
     return binding.getRoot();
@@ -71,16 +81,26 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    permissionsViewModel = new ViewModelProvider(getActivity()).get(PermissionsViewModel.class);
+    ViewModelProvider viewModelProvider = new ViewModelProvider(getActivity());
+    permissionsViewModel = viewModelProvider.get(PermissionsViewModel.class);
     permissionsViewModel.getPermissionsGranted().observe(getViewLifecycleOwner(), (permissions) -> {
       if (permissions.contains(permission.ACCESS_FINE_LOCATION)) {
-        locationViewModel = new ViewModelProvider(getActivity()).get(LocationViewModel.class);
+        locationViewModel = viewModelProvider.get(LocationViewModel.class);
         locationViewModel.getLocation().observe(getViewLifecycleOwner(), (latLng) -> {
           this.latLng = latLng;
         });
       }
     });
-    // TODO Get access to a view-model and observe as necessary.
+    favoritePlaceViewModel = viewModelProvider.get(FavoritePlaceViewModel.class);
+    favoritePlaceViewModel.getPlaceTypes().observe(getViewLifecycleOwner(), (placeTypes) -> {
+      ArrayAdapter<PlaceType> adapter =
+          new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, placeTypes);
+      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      binding.placeType.setAdapter(adapter);
+    });
+    favoritePlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), (places) -> {
+      Log.d(getClass().getSimpleName(), places.stream().map(Place::getName).collect(Collectors.joining("\n")));
+    });
   }
 
 
