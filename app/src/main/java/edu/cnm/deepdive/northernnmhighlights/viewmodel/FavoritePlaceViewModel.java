@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 public class FavoritePlaceViewModel extends AndroidViewModel {
 
   private final FavoritePlaceRepository placeRepository;
-  private final LocationRepository locationRepository;
   private final MutableLiveData<List<PlaceType>> placeTypes;
   private final MutableLiveData<Location> location;
   private final MutableLiveData<Throwable> throwable;
@@ -27,35 +26,16 @@ public class FavoritePlaceViewModel extends AndroidViewModel {
       @NonNull @NotNull Application application) {
     super(application);
     placeRepository = new FavoritePlaceRepository(application);
-    locationRepository = LocationRepository.getInstance();
     throwable = new MutableLiveData<>();
     placeTypes = new MutableLiveData<>();
     location = new MutableLiveData<>();
     pending = new CompositeDisposable();
-    subscribeToLocation();
   }
 
   public LiveData<List<PlaceType>> getPlaceTypes() {
     return placeRepository.getPlaceTypes();
   }
 
-  public LiveData<Location> getLocation() {
-    return location;
-  }
-
-  public void subscribeToLocation() {
-    pending.add(
-        locationRepository
-            .getCurrentLocation()
-            .subscribe(
-                (value) -> {
-                  Log.d(getClass().getSimpleName(), value.toString());
-                  location.postValue(value);
-                },
-              this::postThrowable
-            )
-    );
-  }
 
   private void postThrowable(Throwable throwable) {
     Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);

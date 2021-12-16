@@ -20,5 +20,6 @@
   <string name="access_fine_location_explanation">If permission to access location is granted, place searches can automatically find results relevant to your location.</string>
   <string name="access_coarse_location_explanation">If permission to access location is granted, place searches can automatically find results relevant to your location.</string>
   <string name="permissions_title">Permissions</string>
+  <string name="search_text">Search Text</string>
 
 </resources>
