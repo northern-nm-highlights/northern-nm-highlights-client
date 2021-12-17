@@ -13,8 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import edu.cnm.deepdive.northernnmhighlights.R;
 import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentMapBinding;
 import edu.cnm.deepdive.northernnmhighlights.model.dto.Place;
@@ -39,8 +38,6 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     OnMyLocationClickListener, OnMapReadyCallback,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
-  private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-  private boolean permissionDenied = false;
   private GoogleMap googleMap;
   private FragmentMapBinding binding;
   private PermissionsViewModel permissionsViewModel;
@@ -49,11 +46,14 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
   private View mapView;
   private LatLng latLng;
   private GoogleMap map;
+  private boolean locationAvailable;
+  private long favoritePlaceId;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // TODO read any arguments passed to the fragment.
+    MapFragmentArgs args = MapFragmentArgs.fromBundle(getArguments());
+    favoritePlaceId = args.getId();
   }
 
 
@@ -72,7 +72,8 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
 //      double circumference = 256 * Math.pow(2, zoom);
       int radius = 25_000;
       PlaceType placeType = (PlaceType) binding.placeType.getSelectedItem();
-      favoritePlaceViewModel.search(placeType, binding.searchText.getText().toString().trim(), latLng, radius);
+      favoritePlaceViewModel.search(placeType, binding.searchText.getText().toString().trim(),
+          latLng, radius);
     });
     // TODO Attach event-listener to controls.
     return binding.getRoot();
@@ -85,6 +86,10 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     permissionsViewModel = viewModelProvider.get(PermissionsViewModel.class);
     permissionsViewModel.getPermissionsGranted().observe(getViewLifecycleOwner(), (permissions) -> {
       if (permissions.contains(permission.ACCESS_FINE_LOCATION)) {
+        locationAvailable = true;
+        if (map != null) {
+          useLocation();
+        }
         locationViewModel = viewModelProvider.get(LocationViewModel.class);
         locationViewModel.getLocation().observe(getViewLifecycleOwner(), (latLng) -> {
           this.latLng = latLng;
@@ -98,13 +103,28 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       binding.placeType.setAdapter(adapter);
     });
-    favoritePlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), (places) -> {
-      Log.d(getClass().getSimpleName(), places.stream().map(Place::getName).collect(Collectors.joining("\n")));
-    });
+//    favoritePlaceViewModel.getPlaces().observe(getViewLifecycleOwner(), (places) -> {
+//      Log.d(getClass().getSimpleName(), places.stream().map(Place::getName).collect(Collectors.joining("\n")));
+//    });
+    if (favoritePlaceId != 0) {
+      favoritePlaceViewModel.getFavoritePlace().observe(getViewLifecycleOwner(), (place) -> {
+        if (map != null) {
+          LatLng latLng = new LatLng(place.getLatitude(), place.getLongitude());
+          CameraUpdate update = CameraUpdateFactory.newLatLng(latLng);
+          MarkerOptions marker = new MarkerOptions()
+              .position(latLng)
+              .title(place.getPlaceName());
+          map.addMarker(marker);
+          map.moveCamera(update);
+
+        }
+        // TODO Center map on favorite place.
+      });
+      favoritePlaceViewModel.setFavoritePlaceId(favoritePlaceId);
+    }
   }
 
 
-  @SuppressLint("MissingPermission")
   @Override
   public void onMapReady(@NonNull GoogleMap googleMap) {
     map = googleMap;
@@ -114,19 +134,25 @@ public class MapFragment extends Fragment implements OnMyLocationButtonClickList
     googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
     CameraUpdate update = CameraUpdateFactory
         .newLatLngZoom(northNm, 6);
-    googleMap.setMyLocationEnabled(true);
-    googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-    googleMap.getUiSettings().setZoomControlsEnabled(true);
-    googleMap.getUiSettings().isZoomGesturesEnabled();
     googleMap.moveCamera(update);
+    googleMap.getUiSettings().setZoomControlsEnabled(true);
+    if (locationAvailable) {
+      useLocation();
+    }
+
+  }
+
+  @SuppressLint("MissingPermission")
+  private void useLocation() {
     View locationButton = mapView.findViewWithTag("GoogleMapMyLocationButton");
-    RelativeLayout.LayoutParams layoutParams =
-        new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    map.setMyLocationEnabled(true);
+    map.getUiSettings().setMyLocationButtonEnabled(true);
+    LayoutParams layoutParams =
+        new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-    layoutParams.setMargins(16, 16,16,16);
+    layoutParams.setMargins(16, 16, 16, 16);
     locationButton.setLayoutParams(layoutParams);
-
   }
 
   @Override

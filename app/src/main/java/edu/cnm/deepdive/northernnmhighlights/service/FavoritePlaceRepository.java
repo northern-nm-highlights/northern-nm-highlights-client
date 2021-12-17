@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import com.google.android.gms.maps.model.LatLng;
 import edu.cnm.deepdive.northernnmhighlights.R;
+import edu.cnm.deepdive.northernnmhighlights.model.dao.FavoritePlaceDao;
 import edu.cnm.deepdive.northernnmhighlights.model.dao.PlaceTypeDao;
 import edu.cnm.deepdive.northernnmhighlights.model.dto.Place;
 import edu.cnm.deepdive.northernnmhighlights.model.dto.SearchResult;
@@ -24,6 +25,7 @@ public class FavoritePlaceRepository {
   private final NnmhlServiceProxy nnmhlServiceProxy;
   private final PlacesServiceProxy placesServiceProxy;
   private final PlaceTypeDao placeTypeDao;
+  private final FavoritePlaceDao favoritePlaceDao;
   private final String apiKey;
   private final String locationFormat;
 
@@ -35,6 +37,7 @@ public class FavoritePlaceRepository {
     placesServiceProxy = PlacesServiceProxy.getInstance();
     NnmhlDatabase database = NnmhlDatabase.getInstance();
     placeTypeDao = database.getPlaceTypeDao();
+    favoritePlaceDao = database.getFavoritePlaceDao();
     syncPlaceTypes().subscribe();
     apiKey = context.getString(R.string.api_key);
     locationFormat = context.getString(R.string.location_format);
@@ -67,6 +70,14 @@ public class FavoritePlaceRepository {
         .refreshBearerToken()
         .flatMap(nnmhlServiceProxy::getFavorites)
         .subscribeOn(Schedulers.io());
+  }
+
+  public LiveData<List<FavoritePlace>> getAllLocal() {
+    return favoritePlaceDao.selectAll();
+  }
+
+  public LiveData<FavoritePlace> getLocal(long id) {
+    return favoritePlaceDao.select(id);
   }
 
   public LiveData<List<PlaceType>> getPlaceTypes() {

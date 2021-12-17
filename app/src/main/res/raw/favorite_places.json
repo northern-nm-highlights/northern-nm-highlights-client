@@ -1,0 +1,42 @@
+[
+	{
+		"placeName": "petroglyph national monument",
+		"cityName": "albuquerque, nm",
+		"placeId": "pnm abq",
+		"id": "00000000-0000-0000-0000-000000000000",
+		"latitude": 35.136782,
+		"longitude": -106.740506
+	},
+	{
+		"placeName": "Bandelier National Monument",
+		"cityName": "Los Alamos, NM",
+		"placeId": "bnm los",
+		"latitude": 35.767288,
+		"longitude": -106.311607,
+		"id": "00000000-0000-0000-0000-000000000001"
+	},
+	{
+		"placeName": "Jemez Hot Springs",
+		"cityName": "Jemez Springs, NM",
+		"latitude": 35.7703,
+		"longitude": -106.6925,
+		"placeId": "jhs hs",
+		"id": "00000000-0000-0000-0000-000000000002"
+	},
+	{
+		"placeName": "Fenton Lake",
+		"cityName": "Jemez Springs, NM",
+		"latitude": 35.8825,
+		"longitude": -103.7264,
+		"placeId": "fl js",
+		"id": "00000000-0000-0000-0000-000000000003"
+	},
+	{
+		"placeName": "Santuario de Chimayo",
+		"cityName": "Chimayo, NM",
+		"latitude": 35.9892,
+		"longitude": -105.9317,
+		"placeId": "sdc c",
+		"id": "00000000-0000-0000-0000-000000000004"
+	}
+]

@@ -9,8 +9,10 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import com.google.android.gms.maps.model.LatLng;
 import edu.cnm.deepdive.northernnmhighlights.model.dto.Place;
+import edu.cnm.deepdive.northernnmhighlights.model.entity.FavoritePlace;
 import edu.cnm.deepdive.northernnmhighlights.model.entity.PlaceType;
 import edu.cnm.deepdive.northernnmhighlights.service.FavoritePlaceRepository;
 import edu.cnm.deepdive.northernnmhighlights.service.LocationRepository;
@@ -25,6 +27,8 @@ public class FavoritePlaceViewModel extends AndroidViewModel implements DefaultL
   private final MutableLiveData<List<PlaceType>> placeTypes;
   private final MutableLiveData<List<Place>> places;
   private final MutableLiveData<Location> location;
+  private final MutableLiveData<Long> favoritePlaceId;
+  private final LiveData<FavoritePlace> favoritePlace;
   private final MutableLiveData<Throwable> throwable;
   private final CompositeDisposable pending;
 
@@ -36,6 +40,8 @@ public class FavoritePlaceViewModel extends AndroidViewModel implements DefaultL
     placeTypes = new MutableLiveData<>();
     places = new MutableLiveData<>();
     location = new MutableLiveData<>();
+    favoritePlaceId = new MutableLiveData<>();
+    favoritePlace = Transformations.switchMap(favoritePlaceId, placeRepository::getLocal);
     pending = new CompositeDisposable();
   }
 
@@ -43,8 +49,20 @@ public class FavoritePlaceViewModel extends AndroidViewModel implements DefaultL
     return placeRepository.getPlaceTypes();
   }
 
+  public LiveData<List<FavoritePlace>> getPlacesLocal() {
+    return placeRepository.getAllLocal();
+  }
+
   public MutableLiveData<List<Place>> getPlaces() {
     return places;
+  }
+
+  public void setFavoritePlaceId(long id) {
+    favoritePlaceId.setValue(id);
+  }
+
+  public LiveData<FavoritePlace> getFavoritePlace() {
+    return favoritePlace;
   }
 
   public void search(PlaceType placeType, String searchText, LatLng latLng, int radius) {

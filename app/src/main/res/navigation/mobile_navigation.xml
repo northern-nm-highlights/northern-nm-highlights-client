@@ -27,7 +27,19 @@
     android:id="@+id/nav_favorites"
     android:name="edu.cnm.deepdive.northernnmhighlights.controller.FavoritePlaceFragment"
     android:label="@string/favorite_place_title"
-    tools:layout="@layout/fragment_favorite_place"/>
+    tools:layout="@layout/fragment_favorite_place">
+
+    <action
+      android:id="@+id/open_map"
+      app:destination="@id/nav_map">
+
+      <argument
+        android:name="id"
+        app:argType="long"
+        android:defaultValue="0L"/>
+
+    </action>
+  </fragment>
 
   <fragment
     android:id="@+id/nav_place_types"
@@ -38,7 +50,14 @@
   <fragment
     android:id="@+id/nav_map"
     android:name="edu.cnm.deepdive.northernnmhighlights.controller.MapFragment"
-    android:label="@string/map_title"/>
+    android:label="@string/map_title">
+
+    <argument
+      android:name="id"
+      app:argType="long"
+      android:defaultValue="0L"/>
+
+  </fragment>
 
   <fragment
     android:id="@+id/nav_settings"

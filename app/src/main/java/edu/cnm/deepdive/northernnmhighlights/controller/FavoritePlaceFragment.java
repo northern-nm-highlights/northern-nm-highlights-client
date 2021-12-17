@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import edu.cnm.deepdive.northernnmhighlights.adapter.FavoritePlaceAdapter;
 import edu.cnm.deepdive.northernnmhighlights.databinding.FragmentFavoritePlaceBinding;
 import edu.cnm.deepdive.northernnmhighlights.viewmodel.FavoritePlaceViewModel;
 
@@ -30,9 +32,14 @@ public class FavoritePlaceFragment extends Fragment {
         .getPlaceTypes()
         .observe(getViewLifecycleOwner(), (placeTypes) -> {
           // TODO Populate a spinner of the place type
-//          GameSummaryAdapter adapter = new GameSummaryAdapter(getContext(), games);
-//          binding.games.setAdapter(adapter);
         });
+    viewModel.getPlacesLocal().observe(getViewLifecycleOwner(), (places) -> {
+      FavoritePlaceAdapter adapter = new FavoritePlaceAdapter(getContext(), places, (place) ->
+          Navigation
+              .findNavController(binding.getRoot())
+              .navigate(FavoritePlaceFragmentDirections.openMap().setId(place.getId())));
+      binding.places.setAdapter(adapter);
+    });
   }
 
   @Override

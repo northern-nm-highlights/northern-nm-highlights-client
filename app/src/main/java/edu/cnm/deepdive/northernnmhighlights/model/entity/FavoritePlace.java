@@ -7,6 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.UUID;
 
@@ -34,16 +35,17 @@ public class FavoritePlace {
   @NonNull
   @Expose
   @ColumnInfo(name = "external_key")
+  @SerializedName("id")
   private UUID externalKey;
 
   @Expose
   @ColumnInfo(name = "user_id", index = true)
-  private long userId;
+  private Long userId;
 
   @NonNull
   @Expose
   @ColumnInfo(index = true)
-  private Date created;
+  private Date created = new Date();
 
   @ColumnInfo(name = "city_name", index = true)
   @NonNull
@@ -55,8 +57,15 @@ public class FavoritePlace {
   @Expose
   private String placeId;
 
+  @Expose
   @ColumnInfo(name = "place_name", index = true)
   private String placeName;
+
+  @Expose
+  private double latitude;
+
+  @Expose
+  private double longitude;
 
   public long getId() {
     return id;
@@ -75,11 +84,11 @@ public class FavoritePlace {
     this.externalKey = externalKey;
   }
 
-  public long getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public void setUserId(long userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 
@@ -117,4 +126,19 @@ public class FavoritePlace {
     this.placeId = placeId;
   }
 
+  public double getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(double latitude) {
+    this.latitude = latitude;
+  }
+
+  public double getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(double longitude) {
+    this.longitude = longitude;
+  }
 }

@@ -42,7 +42,7 @@ public interface FavoritePlaceDao {
   @Delete
   Single<Integer> delete(Collection<FavoritePlace> favoritePlaces);
 
-  @Query("SELECT * FROM favorite_place ORDER BY created DESC")
+  @Query("SELECT * FROM favorite_place ORDER BY place_name ASC")
   LiveData<List<FavoritePlace>> selectAll();
 
   @Query("SELECT * FROM favorite_place WHERE favorite_place_id = :favoritePlaceId")

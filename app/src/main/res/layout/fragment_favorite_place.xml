@@ -9,7 +9,7 @@
 
 <!--  TODO ADD A SPINNER OF PLACE TYPES -->
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/games"
+    android:id="@+id/places"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:orientation="vertical"
@@ -17,7 +17,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
-<!--    tools:listitem="@layout/item_game_summary"-->
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:listitem="@layout/item_favorite_place"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
